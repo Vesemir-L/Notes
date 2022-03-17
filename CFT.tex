@@ -1,0 +1,84 @@
+\documentclass{article}
+
+\usepackage{ctex}
+\usepackage{graphicx}
+\usepackage{multirow}
+\usepackage{amsmath}
+\numberwithin{equation}{section}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\allowdisplaybreaks[4]
+\usepackage{pifont}
+\usepackage{geometry}
+\usepackage{color}
+\usepackage{cite}
+\usepackage{braket}
+\geometry{a4paper,left=2cm,right=2cm,top=2.5cm,bottom=2.5cm}
+
+\usepackage{titlesec} 
+\titleformat
+{\section}
+{\centering\LARGE\bfseries\heiti}
+{\arabic{section}}
+{0em}
+{. }[\titlerule]
+
+\titleformat
+{\subsection}[block]
+{\Large\bfseries\heiti}
+{\arabic{section}.\arabic{subsection}}
+{1em}
+{}[]
+
+\titleformat
+{\subsubsection}[block]
+{\large\bfseries\heiti}
+{\arabic{section}.\arabic{subsection}.\alph{subsubsection}}
+{1em}
+{}[]
+
+
+\newcommand{\wt}[1]{\widetilde{#1}}
+\newcommand{\equ}[1]{(\ref{#1})}
+
+
+\title{\heiti \Huge Conformal Field Theory }
+\author{\Large 刘璇彰} \date{}
+
+\begin{document}
+\maketitle
+\section{Movitation}
+对称性是研究宇宙自然规律的一个基本物理定律，通常来说一个物理系统它的对称性越高，它的物理机制越简单。在场论中，对称性意味着在一个对称变换下物理系统的作用量不变，相应的运动方程也不变，{\heiti 而共形对称性是具有非平庸关联函数的理论所能拥有的最大对称性。}而研究具有共形对称性的经典或量子场论，就是所谓的{\heiti 共形场论（Conformal Field Theory）。}
+\section{Path Integral}
+量子场论初级课程中我们学习了利用对易关系来量子化场论的正则量子化，这一过程颇为不易，但我们真正关心的，或者说在计算散射截面中真正用到是后续的内容，如两点关联函数、费曼传播子、费曼规则等。
+\par
+与正则量子化对应的路径积分表述（Path Integral Formalism）是一种更加“物理”的量子化方案，它最初的建立是为了让量子力学和经典力学联系更加紧密，但如今已经发展为量子场论最基本的形式。本章将从最简单的一维量子力学出发，导出场论的路径积分形式，并就费米子路径积分量子化中需要用到的Grassmann代数予以简要讨论。
+\subsection{一维量子力学}
+考虑一个具有经典哈密顿量为$\hat{H}=\frac{\hat{p}^2}{2m}+V(\hat{x})$的粒子，它从初态$\ket{x,t}$演化至末态$\ket{x',t'}$的跃迁矩阵元表示为
+\begin{align}
+				\Braket{x',t'|x,t} = \Braket{x',t'|e^{-i\hat{H} \left(t'-t\right)}|x,t}\label{Basic}
+\end{align}
+但仔细观察这个矩阵元时会发现，由于指数中含坐标的势能部分和含动量的动能部分不对易，造成计算上的巨大困难，为了解决这一困境，我们将$(t,t')$的时间间隔分为 $n$ 个等份，记每一份为
+\begin{align}
+				\delta t = \frac{t'-t}{n}\label{deltat}
+\end{align}
+也就将式\equ{Basic}改写为
+\begin{align*}
+				\Braket{x',t'|x,t} = \Braket{x',t'|e^{-i n \hat{H} \delta t}|x,t}
+\end{align*}
+我们在每一个$\delta t$后插入一组态矢量的完备基，得到
+\begin{align}
+				\Braket{x',t'|x,t} = \int \mathrm{d}x_1 \ldots \mathrm{d}x_{n-1}&\Braket{x'|e^{-i\hat{H} \delta t}|x_{n-1}}\Braket{x_{n-1}|e^{-i\hat{H} \delta t}|x_{n-2}} \nonumber \\
+				\ldots &\Braket{x_1|e^{-i\hat{H} \delta t}|x}
+\end{align}
+如果每个$\delta t$足够小，也就是 $\lim n \rightarrow \infty$时，每个矩阵元可以近似写为
+\begin{align}
+				\Braket{x_j|e^{-i\hat{H} \delta t}|x_i}=\Braket{x_j|\left(1-iH \delta t \right)|x_i}+O\left({\delta t }^2\right)
+\end{align}
+\section{Conformal Group}
+\section{Classical Field}
+\section{Quantum Field}
+
+
+
+\end{document}
