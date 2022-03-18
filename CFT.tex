@@ -39,41 +39,94 @@
 
 
 \newcommand{\wt}[1]{\widetilde{#1}}
-\newcommand{\equ}[1]{(\ref{#1})}
+\newcommand{\equ}[1]{(\ref{#1}) }
 
 
-\title{\heiti \Huge Conformal Field Theory }
+\title{\heiti\Huge Conformal Field Theory}
 \author{\Large 刘璇彰} \date{}
 
 \begin{document}
 \maketitle
 \section{Movitation}
-对称性是研究宇宙自然规律的一个基本物理定律，通常来说一个物理系统它的对称性越高，它的物理机制越简单。在场论中，对称性意味着在一个对称变换下物理系统的作用量不变，相应的运动方程也不变，{\heiti 而共形对称性是具有非平庸关联函数的理论所能拥有的最大对称性。}而研究具有共形对称性的经典或量子场论，就是所谓的{\heiti 共形场论（Conformal Field Theory）。}
+对称性是研究宇宙自然规律的一个基本物理定律，通常来说一个物理系统它的对称性越高，它的物理机制越简单。在场论中，对称性意味着在一个对称变换下物理系统的作用量不变，相应的运动方程也不变，{\heiti 可以证明，共形对称性是具有非平庸关联函数的理论所能拥有的最大对称性。}而研究具有共形对称性的经典或量子场论，就是所谓的{\heiti 共形场论（Conformal Field Theory）。}
 \section{Path Integral}
 量子场论初级课程中我们学习了利用对易关系来量子化场论的正则量子化，这一过程颇为不易，但我们真正关心的，或者说在计算散射截面中真正用到是后续的内容，如两点关联函数、费曼传播子、费曼规则等。
 \par
-与正则量子化对应的路径积分表述（Path Integral Formalism）是一种更加“物理”的量子化方案，它最初的建立是为了让量子力学和经典力学联系更加紧密，但如今已经发展为量子场论最基本的形式。本章将从最简单的一维量子力学出发，导出场论的路径积分形式，并就费米子路径积分量子化中需要用到的Grassmann代数予以简要讨论。
+与正则量子化对应的路径积分表述（Path Integral Formalism）是一种更加“物理”的量子化方案，它最初的建立是为了让量子力学和经典力学联系更加紧密，但创立之后迅速发展为量子场论最基本最常用的形式。本章将从最简单的一维量子力学出发，导出场论的路径积分形式，并就费米子路径积分量子化中需要用到的Grassmann代数予以简要讨论。
 \subsection{一维量子力学}
-考虑一个具有经典哈密顿量为$\hat{H}=\frac{\hat{p}^2}{2m}+V(\hat{x})$的粒子，它从初态$\ket{x,t}$演化至末态$\ket{x',t'}$的跃迁矩阵元表示为
+考虑一个具有哈密顿量为$\hat{H}$的粒子，它从初态$\ket{q,t}$演化至末态$\ket{q',t'}$的跃迁矩阵元表示为
 \begin{align}
-				\Braket{x',t'|x,t} = \Braket{x',t'|e^{-i\hat{H} \left(t'-t\right)}|x,t}\label{Basic}
+				\Braket{q',t'|q,t} = \Braket{q',t'|e^{-i\hat{H} \left(t'-t\right)}|q,t}\label{Basic}
 \end{align}
 但仔细观察这个矩阵元时会发现，由于指数中含坐标的势能部分和含动量的动能部分不对易，造成计算上的巨大困难，为了解决这一困境，我们将$(t,t')$的时间间隔分为 $n$ 个等份，记每一份为
 \begin{align}
 				\delta t = \frac{t'-t}{n}\label{deltat}
 \end{align}
-也就将式\equ{Basic}改写为
+也就将\equ{Basic}改写为
 \begin{align*}
-				\Braket{x',t'|x,t} = \Braket{x',t'|e^{-i n \hat{H} \delta t}|x,t}
+				\Braket{q',t'|q,t} = \Braket{q',t'|e^{-i n \hat{H} \delta t}|q,t}
 \end{align*}
 我们在每一个$\delta t$后插入一组态矢量的完备基，得到
 \begin{align}
-				\Braket{x',t'|x,t} = \int \mathrm{d}x_1 \ldots \mathrm{d}x_{n-1}&\Braket{x'|e^{-i\hat{H} \delta t}|x_{n-1}}\Braket{x_{n-1}|e^{-i\hat{H} \delta t}|x_{n-2}} \nonumber \\
-				\ldots &\Braket{x_1|e^{-i\hat{H} \delta t}|x}
+				\Braket{q',t'|q,t} = \int \mathrm{d}q_1 \ldots \mathrm{d}q_{n-1}&\Braket{x'|e^{-i\hat{H} \delta t}|q_{n-1}}\Braket{q_{n-1}|e^{-i\hat{H} \delta t}|q_{n-2}} \notag \\
+				\ldots &\Braket{q_1|e^{-i\hat{H} \delta t}|q}
 \end{align}
 如果每个$\delta t$足够小，也就是 $\lim n \rightarrow \infty$时，每个矩阵元可以近似写为
 \begin{align}
-				\Braket{x_j|e^{-i\hat{H} \delta t}|x_i}=\Braket{x_j|\left(1-iH \delta t \right)|x_i}+O\left({\delta t }^2\right)
+				\Braket{q_j|e^{-i\hat{H} \delta t}|q_i}=\Braket{q_j|\left(1-iH \delta t \right)|q_i}+O\left({\delta t }^2\right)
+\end{align}
+如果哈密顿量具有经典形式$\hat{H}=\frac{\hat{p}^2}{2m}+V(\hat{x})$，结合$ \Braket{q_j|q_i}=\delta \left( q_j - q_i\right)$和$\Braket{q|p}=e^{ipq}$，可以得到
+\begin{align*}
+				\Braket{q_j|\hat{H}|q_i}&=\Braket{q_i|\frac{\hat{p}}{2m}|q_i}+V \left(\frac{q_i+q_j}{2} \right)\delta \left( q_i - q_j\right)\\
+																&=\int \frac{\mathrm{d}p}{2\pi} \Braket{q_j|p} \Braket{p|\frac{\hat{p}}{2m}|q_i}+V \left(\frac{q_i+q_j}{2} \right)\int \frac{\mathrm{d}p}{2\pi} e^{ip \left( q_j - q_i\right)}\\
+																&=\int \frac{\mathrm{d}p}{2\pi} e^{ip \left( q_j - q_i\right)}\left[ \frac{p^2}{2m}+ V \left(\frac{q_i+q_j}{2} \right)\right]
+\end{align*}
+那么我们可以推出
+\begin{align}
+				\Braket{q_j|e^{-i\hat{H} \delta t}|q_i} & \approx \int \frac{\mathrm{d}p}{2\pi} e^{ip \left( q_j - q_i\right)} \left\{1 - i\delta t \left[ \frac{p^2}{2m}+ V \left(\frac{q_i+q_j}{2} \right)\right]\right\} \notag \\
+																								&\approx \int \frac{\mathrm{d}p}{2\pi} e^{ip \left( q_j - q_i\right)} e^{-i\delta t H \left( p,\frac{q_j+q_i}{2}\right)}
+\end{align}
+于是，总的跃迁矩阵元可以写为
+\begin{align}
+				\Braket{q'|e^{-i\hat{H} \left( t'-t\right)}|q} \equiv & \int \left( \frac{\mathrm{d}p_1}{2\pi}\right) \ldots \left( \frac{\mathrm{d}p_n}{2\pi}\right)\int \mathrm{d}q_1 \ldots \mathrm{d} q_{n-1} \notag \\
+																												& exp \left\{ i \left[\sum_{i=1}^n p_i \frac{\left( q_i - q_{i-1}\right)}{\delta t}\delta t- H \left( p_i,\frac{q_i+q_{i-1}}{2}\right)\delta t\right]\right\}
+\end{align}
+当$\lim n\rightarrow \infty$时，\equ{basic integral}可以写为
+\begin{align}
+				\Braket{q'|e^{-i\hat{H} \left( t'-t\right)}|q}  =& \lim_{n\rightarrow\infty} \int \left( \frac{\mathrm{d}p_1}{2\pi}\right) \ldots \left( \frac{\mathrm{d}p_n}{2\pi}\right)\int \mathrm{d}q_1 \ldots \mathrm{d} q_{n-1} \notag \\
+																												& exp \left\{ i \left[\sum_{i=1}^n p_i \frac{\left( q_i - q_{i-1}\right)}{\delta t}\delta t- H \left( p_i,\frac{q_i+q_{i-1}}{2}\right)\delta t\right]\right\}\label{basic integral} \\
+				=& \int \left[ \frac{\mathrm{d}p\mathrm{d}q}{2\pi} \right] exp \left\{ i\int_{t}^{t'} \mathrm{d} t \left[ p\dot{q} -H \left( p,q\right) \right] \right\}\label{define}
+\end{align}
+如果再考虑到通常情况下$H$都是$p$ 的二次型，那\equ{define}就是关于$p$的高斯积分，利用 
+\begin{align*}
+\int_{-\infty}^{+\infty}\frac{\mathrm{d}x}{2\pi}e^{-ax^2+bx}=\frac{1}{\sqrt{4\pi a}}e^{\frac{b^2}{4a}}
+\end{align*}
+可以将\equ{basic integral}改写为
+\begin{align}
+				\Braket{q'|e^{-i\hat{H} \left( t'-t\right)}|q}  =& \lim_{n\rightarrow\infty} {\left( \frac{m}{2\pi i \delta t}\right)}^{\frac{n}{2}}\int \prod_{i=1}^{n-1}\mathrm{d}q_i exp \left\{i \sum_{i=1}^{n}\delta t \left[ \frac{m}{2}{\left( \frac{q_i-q_{i-1}}{\delta t}\right)}^2 -V\right]\right\}\\
+				=& N \int \left[ \mathrm{d}q \right]exp\left\{i\int_{t}^{t'}\mathrm{d}\tau \left[ \frac{m\dot{q}^2}{2}-V \left( q\right) \right]\right\}\notag \\
+				=& N\int \left[ \mathrm{d}q \right]e^{iS}\label{formalism}
+\end{align}
+\equ{formalism}是路径积分中最常用的公式，它的推导过程表明，要想避开复杂的算符运算，就必须付出无穷多积分的代价，但需要明确的是，算符运算和路径积分并没有严格的优劣之分，前者在算符展开中更易操作，后者更适合应对有约束的系统，如规范场论。
+上述的论证是对普通的量子力学进行的，对于量子场论可以用完全相似的方式得出它们的路径积分形式，最后的表达式只需要简单地做一些替换即可
+\begin{align*}
+				\left[ \mathrm{d}q_i \mathrm{d}p_i  \right]&\Rightarrow \left[ \mathrm{d}\phi \left( x\right) \mathrm{d}\pi \left( x\right)\right]\\
+				L \left( q,\dot{q}\right)&\Rightarrow \int \mathcal{L}\left( \phi,\partial_{\mu}\phi \right)\mathrm{d}x^3\\
+				H \left( p,q\right)&\Rightarrow \int \mathcal{H}\left( \phi,\pi \right)\mathrm{d}x^3
+\end{align*}
+\subsection{标量场的路径积分量子化}
+在这一节我们将利用路径积分的形式量子化实标量场，并最终导出标量场的费曼规则。
+我们已经熟知标量场的哈密顿量为
+\begin{align*}
+     H = \int \mathrm{d}^3x \left[ \frac{1}{2}\pi^2 +\frac{1}{2}\left( \nabla\phi\right)^2 + V \left( \phi\right) \right]
+\end{align*}
+则对于一个标量场从$\phi_a \left( \mathbf{x}\right),x^0_a=-T$ 演化到$\phi_b \left( \mathbf{x}\right),x^0_b=T$，我们可以直接写出它的路径积分量子化形式
+\begin{align}
+				\Braket{\phi_b \left( \mathbf{x}\right)|e^{-iHT}|\phi_a \left( \mathbf{x}\right)}=\int \mathcal{D}\phi \ exp \left[ i \int_{-T}^{T}\mathrm{d}^4 \mathcal{L} \right]
+\end{align}
+接着，我们来计算一下相互作用场论中的两点关联函数，考虑这样一个式子
+\begin{align}
+				\int \mathcal{D}\phi\ \phi\left( x_1\right) \phi\left( x_2\right)\ exp \left[ i\int_{-T}^{T} \mathrm{d}^4 x \mathcal{L}\right]
 \end{align}
 \section{Conformal Group}
 \section{Classical Field}
