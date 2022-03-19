@@ -6,6 +6,7 @@
 \usepackage{amsmath}
 \numberwithin{equation}{section}
 \usepackage{amsfonts}
+\usepackage{slashed}
 \usepackage{amssymb}
 \allowdisplaybreaks[4]
 \usepackage{cite}
@@ -50,7 +51,7 @@
 \section{Path Integral}
 量子场论初级课程中我们学习了利用对易关系来量子化场论的正则量子化，这一过程颇为不易，但我们真正关心的，或者说在计算散射截面中真正用到是后续的内容，如两点关联函数、费曼传播子、费曼规则等。
 \par
-与正则量子化对应的路径积分表述（Path Integral Formalism）是一种更加“物理”的量子化方案，它最初的建立是为了让量子力学和经典力学联系更加紧密，但创立之后迅速发展为量子场论最基本最常用的形式。本章将从最简单的一维量子力学出发，导出场论的路径积分形式，并就费米子路径积分量子化中需要用到的Grassmann代数予以简要讨论。
+与正则量子化对应的路径积分表述（Path Integral Formalism）是一种更加“物理”的量子化方案，它最初的建立是为了让量子力学和经典力学联系更加紧密，但创立之后迅速发展为量子场论最基本最常用的形式。本章将从最简单的一维量子力学出发，导出场论的路径积分形式，并简单讨论标量场和Dirac场的路径积分量子化细节。
 \subsection{一维量子力学}
 考虑一个具有哈密顿量为$\hat{H}$的粒子，它从初态$\ket{q,t}$演化至末态$\ket{q',t'}$的跃迁矩阵元表示为
 \begin{align}
@@ -102,13 +103,13 @@
 可以将\equ{basic integral}改写为
 \begin{align}
 				\Braket{q'|e^{-i\hat{H} \left( t'-t\right)}|q}  =& \lim_{n\rightarrow\infty} {\left( \frac{m}{2\pi i \delta t}\right)}^{\frac{n}{2}}\int \prod_{i=1}^{n-1}\mathrm{d}q_i exp \left\{i \sum_{i=1}^{n}\delta t \left[ \frac{m}{2}{\left( \frac{q_i-q_{i-1}}{\delta t}\right)}^2 -V\right]\right\}\\
-				=& N \int \left[ \mathrm{d}q \right]exp\left\{i\int_{t}^{t'}\mathrm{d}\tau \left[ \frac{m\dot{q}^2}{2}-V \left( q\right) \right]\right\}\notag \\
-				=& N\int \left[ \mathrm{d}q \right]e^{iS}\label{formalism}
+				=& N \int \mathcal{D}q\ exp\left\{i\int_{t}^{t'}\mathrm{d}\tau \left[ \frac{m\dot{q}^2}{2}-V \left( q\right) \right]\right\}\notag \\
+				=& N\int \mathcal{D}q\ e^{iS}\label{formalism}
 \end{align}
 \equ{formalism}是路径积分中最常用的公式，它的推导过程表明，要想避开复杂的算符运算，就必须付出无穷多积分的代价，但需要明确的是，算符运算和路径积分并没有严格的优劣之分，前者在算符展开中更易操作，后者更适合应对有约束的系统，如规范场论。
 上述的论证是对普通的量子力学进行的，对于量子场论可以用完全相似的方式得出它们的路径积分形式，最后的表达式只需要简单地做一些替换即可
 \begin{align*}
-				\left[ \mathrm{d}q_i \mathrm{d}p_i  \right]&\Rightarrow \left[ \mathrm{d}\phi \left( x\right) \mathrm{d}\pi \left( x\right)\right]\\
+				\mathcal{D}q\mathcal{D}p&\Rightarrow \mathcal{D}\phi \left( x\right) \mathcal{D}\pi \left( x\right)\\
 				L \left( q,\dot{q}\right)&\Rightarrow \int \mathcal{L}\left( \phi,\partial_{\mu}\phi \right)\mathrm{d}x^3\\
 				H \left( p,q\right)&\Rightarrow \int \mathcal{H}\left( \phi,\pi \right)\mathrm{d}x^3
 \end{align*}
@@ -139,7 +140,7 @@
 \end{align}
 这一公式可以自然地推广至多点关联函数。
 \subsection{生成泛函与费曼规则}
-为了用路径积分表述得到费曼规则，我们可以暴力计算\equ{correlation2}，先通过离散化得到表达式再取连续极限，但这一过程极度繁琐，Peskin甚至直言这一思路是“ugly”的，所以我们绕过这一蛮力的方法，直接引入更普适简洁的生成泛函。
+为了用路径积分表述得到费曼规则，我们可以暴力计算\equ{correlation2}，先通过离散化得到表达式再取连续极限，但这一过程极度繁琐，Peskin甚至直言这一做法是“ugly”的，所以我们绕过这一蛮力的方法，直接引入更普适简洁的生成泛函。
 
 \subsubsection{生成泛函}
 首先介绍泛函导数（Functional Derivative）的定义
@@ -199,7 +200,7 @@
 \end{align}
 最后利用\equ{derivative}和\equ{function4}，得到
 \begin{align}
-		 &\Braket{0|T \left[ \phi \left( x_1\right) \phi \left( x_2\right)\right]|0}\notag \\
+		&\Braket{0|T \left[ \phi \left( x_1\right) \phi \left( x_2\right)\right]|0}\notag \\
 				=& - \frac{\delta}{\delta J \left( x_1\right)}\frac{\delta}{\delta J \left( x_2\right)} exp\left. \left[ -\frac{1}{2} \int \mathrm{d}^4x \mathrm{d}^4 y J \left( x\right) D_F \left( x-y\right)J \left( y\right)\right]\right|_{J=0}\notag \\
 								=&- \left. \frac{\delta}{\delta J \left( x_1\right)}\left[ -\frac{1}{2}\int \mathrm{d}^4y D_F \left( x_2-y\right)J \left( y\right) -\frac{1}{2}\int \mathrm{d}^4 x J \left( x\right) D_F \left( x-x_2\right) \right]\frac{Z \left[ J \right]}{Z_0}\right|_{J=0}\notag \\
 								=& D_F \left( x_1-x_2\right)
@@ -208,35 +209,104 @@
 \subsubsection{费曼规则}
 利用同样的思路，对于四点关联函数有
 \begin{align}
-		 &\Braket{0|T \left[ \phi \left( x_1\right) \phi \left( x_2\right)\phi \left( x_3\right)\phi \left( x_4\right)\right]|0}\notag \\
-				=& \left.\frac{\delta}{\delta J \left( x_1\right)} \frac{\delta}{\delta J \left( x_2\right)} \frac{\delta}{\delta J \left( x_3\right)} \frac{\delta}{\delta J \left( x_4\right)}exp \left[ -\frac{1}{2}J \left( x\right)D_F \left( x-y\right)J \left( y\right) \right]\right|_{J=0}\notag \\
-								=&\left.\frac{\delta}{\delta J \left( x_1\right)} \frac{\delta}{\delta J \left( x_2\right)} \frac{\delta}{\delta J \left( x_3\right)}\left[ -J \left( x\right)D_F \left( x-x_4\right) \right]exp \left[ -\frac{1}{2}J \left( x\right)D_F \left( x-y\right)J \left( y\right) \right]\right|_{J=0}\notag \\
-								=&\left.\frac{\delta}{\delta J \left( x_1\right)} \frac{\delta}{\delta J \left( x_2\right)} \left[-D_F \left( x_3-x_4\right) +J \left( x\right)D_F \left( x-x_4\right)J \left( y\right) D_F \left( x-y_3\right) \right]exp \left[ -\frac{1}{2}J \left( x\right)D_F \left( x-y\right)J \left( y\right) \right]\right|_{J=0}\notag \\
-								=&\frac{\delta}{\delta J \left( x_1\right)}\left[D_F \left( x_3-x_4\right)J \left( x\right)D_F \left( x-x_2\right)+D_F \left( x_2-x_4\right)J \left( y\right)D_F \left( x-y_3\right)+J \left( x\right)D_F \left( x-x_4\right)D_F \left( x_2-x_3\right)\right]\notag\\
-								 &\left.exp \left[ -\frac{1}{2}J \left( x\right)D_F \left( x-y\right)J \left( y\right) \right]\right|_{J=0}\notag \notag\\
-								=& D_F \left( x_3-x_4\right)D_F \left( x_1-x_2\right)+D_F \left( x_2-x_4\right)D_F \left( x_1-x_3\right)+D_F \left( x_1-x_4\right)D_F \left( x_2-x_3\right)
+	&\Braket{0|T \left[ \phi \left( x_1\right) \phi \left( x_2\right)\phi \left( x_3\right)\phi \left( x_4\right)\right]|0}\notag \\
+	=& \left.\frac{\delta}{\delta J \left( x_1\right)} \frac{\delta}{\delta J \left( x_2\right)} \frac{\delta}{\delta J \left( x_3\right)} \frac{\delta}{\delta J \left( x_4\right)}exp \left[ -\frac{1}{2}J \left( x\right)D_F \left( x-y\right)J \left( y\right) \right]\right|_{J=0}\notag \\
+					=&\left.\frac{\delta}{\delta J \left( x_1\right)} \frac{\delta}{\delta J \left( x_2\right)} \frac{\delta}{\delta J \left( x_3\right)}\left[ -J \left( x\right)D_F \left( x-x_4\right) \right]exp \left[ -\frac{1}{2}J \left( x\right)D_F \left( x-y\right)J \left( y\right) \right]\right|_{J=0}\notag \\
+					=&\left.\frac{\delta}{\delta J \left( x_1\right)} \frac{\delta}{\delta J \left( x_2\right)} \left[-D_F \left( x_3-x_4\right) +J \left( x\right)D_F \left( x-x_4\right)J \left( y\right) D_F \left( x-y_3\right) \right]exp \left[ -\frac{1}{2}J \left( x\right)D_F \left( x-y\right)J \left( y\right) \right]\right|_{J=0}\notag \\
+					=&\frac{\delta}{\delta J \left( x_1\right)}\left[D_F \left( x_3-x_4\right)J \left( x\right)D_F \left( x-x_2\right)+D_F \left( x_2-x_4\right)J \left( y\right)D_F \left( x-y_3\right)+J \left( x\right)D_F \left( x-x_4\right)D_F \left( x_2-x_3\right)\right]\notag\\
+					&\left.exp \left[ -\frac{1}{2}J \left( x\right)D_F \left( x-y\right)J \left( y\right) \right]\right|_{J=0}\notag \notag\\
+					=& D_F \left( x_3-x_4\right)D_F \left( x_1-x_2\right)+D_F \left( x_2-x_4\right)D_F \left( x_1-x_3\right)+D_F \left( x_1-x_4\right)D_F \left( x_2-x_3\right)
 \end{align}
 符合我们的预期
 \subsection{Dirac场的路径积分量子化}
 我们已经知道狄拉克场遵循反对易关系，为了的到它的路径积分形式，我们首先详细介绍一下满足反对易关系的通用代数性质，也就是Grassmann numbers
 \subsubsection{Grassmann 代数}
 Grassmann数的基本性质是任意两个数$\theta,\eta$之间满足反对易关系
- \begin{align}
-     \theta \eta +\eta \theta =0
+\begin{align}
+    \theta \eta +\eta \theta =0
 \end{align}
 由于$\theta,\eta$的选取完全任意，显然有$\theta^2=0$，因此更高次幂的项也自然为零，于是任意一个定义在Grassmann数上的函数只能写为
 \begin{align}
-     f \left( \theta \right)=A + B\theta
+    f \left( \theta \right)=A + B\theta
 \end{align}
 其中$A,B$为一般的对易数。在此基础上，我们考虑Grassmann数上的积分，由于它肯定无法适用一般的积分，我们考虑“积分”操作的一般特点：
 \begin{align*}
-		 &\text{1.线性：}\int \mathrm{d}\theta\ \left[af \left( \theta\right) +bg \left( \theta\right) \right]=a\int \mathrm{d}\theta f \left( \theta\right)+b\int \mathrm{d}\theta g \left( \theta\right)\\
-		 &\text{2.在平移操作下积分不变：}\int \mathrm{d} \left( A+B\theta\right) = \int \mathrm{d}\theta\left( \left( A+B\eta\right)+B\theta\right)
+		&\text{1.线性：}\int \mathrm{d}\theta\ \left[af \left( \theta\right) +bg \left( \theta\right) \right]=a\int \mathrm{d}\theta f \left( \theta\right)+b\int \mathrm{d}\theta g \left( \theta\right)\\
+		&\text{2.在平移操作下积分不变：}\int \mathrm{d} \left( A+B\theta\right) = \int \mathrm{d}\theta\left( \left( A+B\eta\right)+B\theta\right)
 \end{align*}
-综合这两个特点，我们可以发现
+综合这两个特点，可以总结出，对于Grassmann数的积分只能是$B$ 的倍数$KB$，一般而言，可以将这个系数设置为$1$，利用这样的结果，我们可以得到
+\begin{align}
+     \begin{cases}
+          \begin{split}
+							&\int \mathrm{d}\theta =1\\
+							&\int \mathrm{d}\theta\ \theta =1
+          \end{split}
+     \end{cases}
+\end{align}
+由于Grassmann数的反对易性，多重积分的顺序是很重要的，例如
+\begin{align}
+    \int \mathrm{d}\theta \int \mathrm{d} \eta \mathrm{d}\theta \ \eta\theta = 1 
+\end{align}
+接着来考虑Grassmann的厄密共轭
+\begin{align}
+     \left( \theta \eta\right)^*=\eta^* \theta^*=-\theta^* \eta^*
+\end{align}
+可以定义
+\begin{align}
+				\theta=\frac{\theta_1+i\theta_2}{\sqrt{2}}\ \ ,\ \ \theta^*=\frac{\theta_1-i\theta_2}{\sqrt{2}}
+\end{align}
+且有
+\begin{align}
+     \int \mathrm{d}\theta^*\mathrm{d}\theta \left( \theta \theta^*\right)=1
+\end{align}
+而对于高斯积分
+\begin{align}
+     \begin{cases}
+         \begin{split}
+								 &\int \mathrm{d}\theta^*\mathrm{d}\theta\  e^{-\theta^*b\theta} =\int \mathrm{d}\theta^*\mathrm{d}\theta \left( 1-\theta^*b\theta\right)=\int \mathrm{d}\theta^*\mathrm{d}\theta \left( 1+\theta\theta^*b\right)=b\\
+								 &\int \mathrm{d}\theta^*\mathrm{d}\theta\ \theta\theta^* e^{-\theta^*b\theta} =\int \mathrm{d}\theta^*\mathrm{d}\theta\ \theta\theta^* \left( 1-\theta^*b\theta\right)=\int \mathrm{d}\theta^*\theta\ \theta\theta^*=1
+         \end{split} 
+     \end{cases}
+\end{align}
+\subsubsection{Dirac场的量子化}
+有了Grassmann数，我们可以对旋量场进行量子化。考虑一个费米子场$\Psi \left( x\right)$，可以将它表示为
+\begin{align}
+     \Psi \left( x\right) = \sum_i \Psi_i \phi_i \left( x\right)
+\end{align}
+其中$\phi_i \left( x\right)$为普通的对易数值构成的场，而为了描述Dirac场，取它为四分量旋量的基底，$\Psi_i$为Grassmann系数。基于此，我们可以类比标量场写出Dirac场的两点关联函数
+\begin{align}
+				\Braket{0|T \left[ \Psi \left( x_1\right)\bar{\Psi} \left( x_2\right) \right]|0} =\frac{\int \mathcal{D}\bar{\Psi}\mathcal{D}\Psi\ exp \left[ i \int \mathrm{d}^4 x \bar{\Psi}\left( i\slashed{\partial}-m\right)\Psi \right]\Psi \left( x_1\right)\Psi \left( x_2\right)}{\int \mathcal{D}\bar{\Psi}\mathcal{D}\Psi\  exp \left[ i \int \mathrm{d}^4 x \bar{\Psi}\left( i\slashed{\partial}-m\right)\Psi \right]}
+\end{align}
+定义Dirac场的生成泛函为
+\begin{align}
+				Z \left[ \bar{\eta},\eta \right]=\int \mathcal{D}\bar{\Psi}\mathcal{D}\Psi\ exp \left[ i\int \mathrm{d}^4 \left[ \bar{\Psi} \left( i\slashed{\partial}-m\right)\Psi +\bar{\eta}\Psi +\bar{\Psi}\eta \right] \right]\label{Dirac two point}
+\end{align}
+同样类比标量场，对$\Psi$和 $\bar{\Psi}$做一次shift，各自添加一个常数项
+ \begin{align}
+    \begin{cases}
+        \begin{split}
+								\Psi = \Psi' -i \int \mathrm{d}^4y S_F \left( x-y\right)\eta \left( y\right) \\
+								\bar{\Psi} = \bar{\Psi'} +i\int\mathrm{d}^4y S_F^* \left( x-y\right)\eta \left( y\right)\label{Dirac shift}
+        \end{split} 
+    \end{cases} 
+\end{align}
+将\equ{Dirac shift}代入\equ{Dirac two point}得到
+\begin{align}
+				Z \left[ \bar{\eta},\eta \right]&=\int \mathcal{D}\bar{\Psi}\mathcal{D}\Psi\ exp \left[ i\int \mathrm{d}^4 \left[ \bar{\Psi} \left( i\slashed{\partial}-m\right)\Psi +\bar{\eta}\Psi +\bar{\Psi}\eta \right] \right]\notag \\
+																				&=\int \mathcal{D}\Psi'\mathcal{D}\bar{\Psi'}\ exp \left[ i \int \mathrm{d}x \left[ \bar{\Psi'}\left( i\slashed{\partial}-m\right) \Psi'\right] \right]exp \left[ -\int \mathrm{d}^4 x \mathrm{d}^4 y \eta \left( x\right)S_F \left( x-y\right)\eta \left( y\right) \right]\notag \\
+																				&= Z_0 exp \left[ -\int \mathrm{d}^4x \mathrm{d}^4y \bar{\eta}\left( x\right)S_F \left( x-y\right)\eta \left( y\right) \right]
+\end{align}
+其中$\eta$是一个Grassmann场。最后利用Grassmann数的求导法则
+\begin{align*}
+     \frac{\mathrm{d}}{\mathrm{d} \eta}\theta \eta=-\frac{\mathrm{d}}{\mathrm{d} \eta}\eta\theta=-\theta
+\end{align*}
+就可以把Dirac场的两点关联函数写为泛函导数的形式
+\begin{align}
+				\left.\Braket{0|T \left[ \Psi \left( x_1\right)\Psi \left( x_2\right) \right]|0} =\frac{1}{Z_0}\left( -i \frac{\delta}{\delta \bar{\eta }\left( x_1\right)}\right)\left( -i \frac{\delta}{\delta \eta \left( x_2\right)}\right)Z \left[ \bar{\eta},\eta \right]\right|_{\bar{\eta},\eta=0}
+\end{align}
 \section{Conformal Group}
 \section{Classical Field}
-\section{Quantum Field}
+\section{quantum Field}
 
 
 
