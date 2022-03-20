@@ -1,15 +1,18 @@
 \documentclass{article}
 
 \usepackage{ctex}
+\usepackage[style=gb7714-2015,gbpub=false]{biblatex}
+\usepackage{url}
+\addbibresource{References.bib}
 
 \usepackage{graphicx}
 \usepackage{amsmath}
-\numberwithin{equation}{section}
 \usepackage{amsfonts}
 \usepackage{amssymb}
 \allowdisplaybreaks[4]
 \usepackage{braket}
 \usepackage{slashed}
+\usepackage{latexsym}
 
 \usepackage{geometry}
 \geometry{a4paper,left=2cm,right=2cm,top=2.5cm,bottom=2.5cm}
@@ -36,6 +39,9 @@
 {0.5em}
 {}[]
 
+\counterwithin{table}{section}
+\counterwithin{figure}{section}
+\numberwithin{equation}{section}
 
 \newcommand{\equ}[1]{(\ref{#1}) }
 
@@ -47,11 +53,12 @@
 \begin{document}
 \maketitle
 \section{Movitation}
-对称性是研究宇宙自然规律的一个基本物理定律，通常来说一个物理系统的对称性越高，它的物理机制越简单。在场论中，对称性意味着在一个对称变换下物理系统的作用量不变，相应的运动方程也不变，{\heiti 可以证明，共形对称性是具有非平庸关联函数的理论所能拥有的最大对称性。}而研究具有共形对称性的经典或量子场论，就是所谓的{\heiti 共形场论（Conformal Field Theory）。}
+\nocite{Peskin,conformal_field_theory,introduction,mathematical_introduction}
+对称性是研究宇宙自然规律的一个基本出发点，通常来说一个物理系统的对称性越高，它的物理机制越简单。而在场论中，对称性意味着在一个对称变换下物理系统的作用量不变，相应的运动方程也不变，{\heiti 可以证明，共形对称性是具有非平庸关联函数的理论所能拥有的最大对称性。}而研究具有共形不变性的经典或量子场论，就是所谓的{\heiti 共形场论（Conformal Field Theory）。}
 \section{Path Integral}
-量子场论初级课程中我们学习了利用对易关系来量子化场论的正则量子化，这一过程颇为不易，但我们真正关心的，或者说在计算散射截面中真正用到是后续的内容，如两点关联函数、费曼传播子、费曼规则等。
+量子场论初级课程中我们学习了利用对易关系来量子化场论的正则量子化，这一过程颇为不易，但我们真正关心的，或者说在计算散射截面中真正用到是，如两点关联函数、费曼传播子、费曼规则等后续内容，那是否存在更直接的方法来获得这些结论呢？
 \par
-与正则量子化对应的路径积分表述（Path Integral Formalism）是一种更加“物理”的量子化方案，它最初的建立是为了让量子力学和经典力学联系更加紧密，但创立之后迅速发展为量子场论最基本最常用的形式。本章将从最简单的一维量子力学出发，导出场论的路径积分形式，并简单讨论标量场和Dirac场的路径积分量子化细节。
+与正则量子化对应的路径积分表述（Path Integral Formalism）是一种更加“物理”的量子化方案，它最初的建立是为了让量子力学和经典力学联系更加紧密，但创立之后迅速发展为量子场论最基本最常用的形式，并成功解决了正则量子化在面对非阿贝尔规范场时的乏力。本章将从最简单的一维量子力学出发，导出场论的路径积分形式，并简单讨论标量场和Dirac场的路径积分量子化细节。
 \subsection{一维量子力学}
 考虑一个具有哈密顿量为$\hat{H}$的粒子，它从初态$\ket{q,t}$演化至末态$\ket{q',t'}$的跃迁矩阵元表示为
 \begin{align}
@@ -306,9 +313,138 @@ Grassmann数的基本性质是任意两个数$\theta,\eta$之间满足反对易�
 \end{align}
 \section{Conformal Group}
 在这一章，我们将详细讨论所谓“共形对称性”的具体含义，类似于我们讨论量子场论的洛伦兹不变性，我们将首先找出共形变换的一般形式，研究无限小共形变换的性质，给出共形变换群的李代数，最后主要探讨一下二维场论中的共形变换理论。
-\subsection{共形变换}
+\subsection{Conformal Transformations}
 在复变函数中我们学过，对于一个解析函数$f \left( z\right)$，在它一阶导数不为$0$的时候 是一个“保角变换”，也就是定义域中两条线相交的夹角在值域中保持不变，而研究共形变换也就是研究“保角变换”的一般形式。
-\subsection{$n \geq 3$ Conformal Group }
+\par
+从数学角度来说，考虑一个流形上的光滑映射$\phi :U \rightarrow V$，其中$U\subset M$，$V\subset M'$，如果这个流形上的度规张量满足$\phi^*g'=\Lambda g$，其中 $\phi^*$为拉回映射（pull back)，则称$\phi$是一个共形变换。这一定义也可以表示为
+\begin{align}
+				g'_{\rho \sigma}\left( x'\right)\frac{\partial x'^\rho}{\partial x^\mu}\frac{\partial x'^\sigma}{\partial x^\nu}=\Lambda \left( x\right)g_{\mu\nu}\left( x\right)\label{tran1}
+\end{align}
+其中$\Lambda \left( x\right)>0$ 被称为标量因子（scalar factor），如果我们只考虑一般的平直欧式空间或闵氏空间，也就是度规张量为常数，且令$M=M'\Rightarrow g'=g$，则\equ{tran1}可以写为
+\begin{align}
+				\eta'_{\rho \sigma}\frac{\partial x'^\rho}{\partial x^\mu}\frac{\partial x'^\sigma}{\partial x^\nu}=\Lambda \left( x\right)g_{\mu\nu}\label{tran2}
+\end{align}
+显然，如果我们令$\Lambda \left( x\right)=1$，就回到了庞加莱变换，而考察无限小庞加莱变换帮助我们得到了很多关于庞加莱群的认识，同样的，对于共形变换我们也能从无限小变换中得到许多有用的结论，对于一个无限小变换，我们总能形式地把这个变换写成
+\begin{align}
+				x'^\rho = x^\rho +\epsilon^\rho \left( x\right) + \mathcal{O}\left( \epsilon^2\right)\label{tran3}
+\end{align}
+其中$\epsilon \left( x\right)\ll 1$，将\equ{tran3}代入\equ{tran2}，忽略$\epsilon$的高阶项，可得
+\begin{align}
+				\eta'_{\rho \sigma}\frac{\partial x'^\rho}{\partial x^\mu}\frac{\partial x'^\sigma}{\partial x^\nu}&=\eta_{\rho\sigma}\left( \delta^\rho_\mu + \frac{\partial\epsilon^\rho}{x^\mu}+\mathcal{O}\left( \epsilon^2\right)\right)\left( \delta^\sigma_\nu + \frac{\partial\epsilon^\sigma}{x^\nu}+\mathcal{O}\left( \epsilon^2\right)\right)\notag\\
+																																																					 &= \eta_{\mu\nu}+\eta_{\mu\sigma}\frac{\partial \epsilon^\sigma}{x^\mu}+\eta_{\rho\nu}\frac{\partial \epsilon^\rho}{x^\nu}+\mathcal{O}\left( \epsilon^2\right)\notag\\
+																																																					 &=\eta_{\mu\nu}+\left( \frac{\partial \epsilon_\mu}{\partial x^\nu}+\frac{\partial \epsilon_\nu}{\partial x^\mu}\right)+\mathcal{O}\left( \epsilon^2\right)\label{tran4}
+\end{align}
+由于\equ{tran2}说明共形变换前后的度规张量只能差一个标量因子，观察\equ{tran4}可知，第一项显然是满足这个关系的，那么在忽略$\epsilon$的高阶项之后，第二项必须和原度规之间只差一个和坐标相关的标量系数，即
+\begin{align*}
+				\partial_\mu \epsilon_\nu +\partial_\nu \epsilon_\mu = K \left( x\right)\eta_{\mu \nu}
+\end{align*}
+再将度规张量作用在这个式子上可得
+\begin{align*}
+				\eta^{\mu\nu}\left( \partial_\mu \epsilon_\nu+\partial_\nu \epsilon_\mu \right)&=K \left( x\right)\eta^{\mu\nu}\eta_{\mu\nu}\\
+				2\partial^\mu \epsilon_\mu &= K \left( x\right)d
+\end{align*}
+其中$d$是所考虑的空间的维数。由此我们可以得到一个重要的结论
+\begin{align}
+				\partial_\mu \epsilon_\nu +\partial_\nu \epsilon_\mu = \frac{2}{d}\left( \partial\cdot\epsilon\right)\eta_{\mu\nu}\label{tran5}
+\end{align}
+其中$\partial\cdot\epsilon$是 $\partial^\mu\epsilon_\mu$的简写。对\equ{tran5}再作用两次导数算符$\partial^\nu$，得到
+\begin{align}
+				\partial_\mu\partial_\nu \left( \partial\cdot\epsilon\right)+\Box \partial_\nu \epsilon_\mu =\frac{2}{d}\partial_\mu\partial_\nu \left( \partial\cdot\epsilon\right)\label{tran6}
+\end{align}
+交换$\mu,\nu$ 指标，并把得到的式子与\equ{tran6}相加，得到
+\begin{align}
+				\left( \eta_{\mu\nu}\Box\left( d-2\right)\partial_\mu \partial_\nu \right)\left( \partial \cdot \epsilon\right)=0
+\end{align}
+最后再用度规张量作用上去，得到
+\begin{align}
+				\left( d-1\right)\Box \left( \partial \cdot \epsilon\right)=0\label{tran7}
+\end{align}
+另外，如果我们对\equ{tran5}再作用一次$\partial_\rho$，并反复交换指标就可以得到如下几个式子
+\begin{align}
+     \begin{split}
+				\partial_\rho\partial_\mu \epsilon_\nu +\partial_\rho\partial_\nu \epsilon_\mu = \frac{2}{d}\eta_{\mu\nu}\partial_\rho\left( \partial\cdot\epsilon\right)\\
+				\partial_\nu\partial_\rho\epsilon_\mu +\partial_\mu\partial_\rho\epsilon_\nu = \frac{2}{d}\eta_{\rho\mu}\partial_\nu\left( \partial\cdot\epsilon\right)\\
+				\partial_\mu\partial_\nu \epsilon_\rho+\partial_\nu\partial_\mu \epsilon_\rho = \frac{2}{d}\eta_{\nu\rho}\partial_\mu\left( \partial\cdot\epsilon\right)
+     \end{split}
+\end{align}
+对后两式求和并减去第一式可得到
+\begin{align}
+				2\partial_\mu\partial_\nu\eta_\rho=\frac{2}{d}\left( -\eta_{\mu\nu}\partial_\rho+\eta_{\rho\mu}\partial_\nu+\eta_{\nu\rho}\partial_\mu\right)\left( \partial\cdot\epsilon\right)\label{tran8}
+\end{align}
 
-
+\subsection{Conformal Group in $d\ \geq\ 3$}
+在上一节中得到的许多关系将在后续几节中有重要应用，比如\equ{tran7}，它告诉我们当$d=1$时，$\partial\cdot\epsilon$也就是$K \left( x\right)$ 无需满足任何约束，一维空间中的坐标变换都是共形变换。而当$ \partial\cdot\epsilon=2$时，就要求$\Box \left( \partial\cdot\epsilon\right)=0$才能构成共形变换。在本节我们将考虑$n\geq 3$维平直时空中共形变换应该满足的条件，并由此导出它的生成元和李代数。
+\par
+由\equ{tran7}可知，$ \partial\cdot\epsilon$至多是$x^\mu$的线性函数，这意味着 $\epsilon_\mu$可以被写为
+ \begin{align}
+				 \epsilon_\mu=a_\mu+b_{\mu\nu}x^\nu+c_{\mu\nu\rho}x^\nu x^\rho\label{3D1}
+\end{align}
+其中参数$a_\mu,b_{\mu\nu},c_{\mu\nu\rho}\ll 1$，而且关于二次项部分的系数必须是对称的，也就是$c_{\mu\nu\rho}=c_{\mu\rho\nu}$。我们下面来分别考察这几项。
+ \begin{itemize}
+				 \item  常数项$a_\mu$对应的无穷小变换是$x^\rho\rightarrow x^\rho+a^\mu$，这就是我们所熟知的平移变换，它的生成元是$P_\mu = -i \partial_\mu$。
+				 \item 对于线性项 $b_{\mu\nu}x^\nu$，我们将它代入\equ{tran5}中可得 \begin{align}
+												b_{\nu\mu}+b_{\mu\nu}=\frac{2}{d}\left( \eta^{\rho\sigma}b_{\rho\sigma}\right)\eta_{\mu\nu}\label{3D2}
+								\end{align}
+\equ{3D2}意味着$b_{\mu\nu}$ 与$b_{\nu\mu}$相加是一个除对角线外均为零的张量，这启示我们可以把$b_{\mu\nu}$写为一个反称张量 $m_{\mu\nu}$与度规张量的倍数的和的形式
+								 \begin{align}
+												 b_{\mu\nu}=\alpha \eta_{\mu\nu}+m_{\mu\nu}
+								\end{align}
+								其中对称部分表示的无穷小变换为$x^\mu \rightarrow x^\mu +\alpha \eta_{\mu\nu}x^\nu= \left( 1+\alpha\right)x^\mu$ ，这是一种标度的缩放变换，它的生成元为$D=-ix^\mu\partial_\mu$，而反对称部分正是我们在洛伦兹群中讨论的转动群，它的生成元是广义角动量算符$L_{\mu\nu}=i \left( x_\mu\partial_\nu+x_\nu \partial_\mu\right)$。
+				\item 对于二次部分，我们可以将它代入\equ{tran8}中得到
+								\begin{align}
+												&\partial \cdot \epsilon = b^\mu_{\ \mu} +2c^\mu_{\mu\rho}x^\rho\\
+												\Rightarrow & \partial_\nu \left( \partial \cdot \epsilon\right)=2c^\mu_{\mu\nu}
+								\end{align}
+这意味着
+\begin{align}
+				c_{\mu\nu\rho}=\eta_{\mu\rho}b_\nu+\eta_{\mu\nu}b_\rho-\eta_{\nu\rho} b_\mu
+\end{align}
+这种类型的变换被称为特殊共形变换（Special Conformal Transformations,SCT），它的无穷小形式为$x^\mu \rightarrow x^\mu +2 \left( x\cdot b\right)x^\mu-\left( x^2\right)b^\mu$，对应的生成元为$K_\mu=-i \left( 2x_\mu x^\nu \partial_\nu-\left( x^2\right)\partial_\mu \right)$
+\end{itemize}
+总结下来，我们可以写出每种变换对应的有限变换形式和它们的生成元
+\newpage
+ \begin{table}[ht!]
+         \centering
+         \caption{共形变换的有限形式及其生成元}
+         \label{finit tran}
+         \begin{tabular}{lll}
+				 \hline \hline
+				 变换 & &生成元\\
+				 \hline
+				 {\heiti\bfseries 平移}&$x^\mu\rightarrow x^\mu +a^\mu$&$P_\mu = -i\partial_\mu$\\
+				 {\heiti\bfseries 旋转}&$x^\mu\rightarrow M^\mu_{\ \nu} x^\nu$&$L_{\mu\nu}=i \left( x_\mu \partial_\nu -x_\nu \partial_\mu\right)$\\
+				 {\heiti\bfseries 标度变换}&$x^\mu\rightarrow \alpha x^\mu$&$D = -ix^\mu\partial_\mu$\\
+				 {\heiti\bfseries 特殊共形变换}&$x^\mu\rightarrow \frac{x^\mu - \left( x\cdot x\right)b^\mu}{1-2 \left( b\cdot x\right)+ \left( b\cdot b\right)\left( x \cdot x\right)}$&$K_\mu = -i \left( 2 x_\mu x^\nu \partial_\nu - \left( x\cdot x\right)\partial_\mu\right)$\\
+				 \hline \hline
+         \end{tabular}
+\end{table}
+生成元之间满足的李代数为
+\begin{align}
+     \begin{cases}
+          \begin{split}
+							&\left[ D,P_\mu \right] =iP_\mu\\
+							&\left[ D,K_\mu \right]=-iK_\mu\\
+							&\left[ K_\mu,P_\nu \right]=2i \left( \eta_{\mu\nu}D-L_{\mu\nu}\right)\\
+							& \left[ K_\rho ,M_{\mu\nu}\right]=i \left( \eta_{\rho\mu}K_\nu-\eta_{\rho\nu}K_\mu\right) \\
+							&\left[ P_\rho , M_{\mu\nu}\right] =i \left( \eta_{\rho\mu}P_\nu-\eta_{\rho\nu}P_\mu\right) 
+          \end{split}
+     \end{cases}
+\end{align}
+这个李代数也被称为共形代数。同时，我们还可以论证这个$d$维共形代数可以视作 $d+2$维Lorentz代数 $\mathfrak{so}\left( 1,d+1\right)$ ，首先，我们看$d$维共形变换一共有几个参数，平移有 $d$个，旋转有 $ \frac{d \left( d-1\right)}{2}$个，标度变换$1$个，特殊共形变换有 $d$个，而 $d+\frac{d \left( d-1\right)}{2}+d+1=\frac{\left( d+1\right)\left( d+2\right)}{2}$，与，$d+1$维洛伦兹群相吻合。其次，我们再来看它们的李代数关系，定义 $J_{mn}\left( m,n=-1,0,1,\ldots,\left( d-1\right)\right)$为
+\begin{align}
+     \begin{split}
+						 &J_{\mu\nu} =L_{\mu\nu}\\
+						 &J_{-1\mu}=\frac{1}{2}\left( P_\mu-K_\mu\right)\\
+						 &J_{-10}=D\\
+						 &J_{0\mu}=\frac{1}{2}\left( P_\mu +K_\mu\right)
+     \end{split}
+\end{align}
+不难验证它满足这样的对易关系
+\begin{align}
+				\left[ J_{ab},J_{cd} \right]=i \left( g_{ad}J_{bc}+g_{bc}J_{ad}-g_{ac}J_{bd}-g_{bd}J_{ac}\right)
+\end{align}
+其中$g_{ab}$是 $d+1$维Minkowski时空的度规张量，即 $g_{ab}=diag \left(\begin{matrix}-1,&\underbrace{1,\cdots,1}\\&d\end{matrix}\right)$，更一般地说，可以证明：{\heiti \bfseries 任意一个$\mathbf{d=p+q\geq 3}$维时空$\mathbf{\mathbb{R}^{p,q}}$的共形变换群是$\mathbf{SO \left( p+1,q+1\right)}$}。
+%\subsection{Conformal Group in $d\ =\ 2$}
+%这一节我们来看在共形场论中有举足轻重地位的二维共形变换。考虑二维平直度规$g_{\mu\nu}=diag \left( +1,+1\right)$，二维坐标记为$x^\mu=\left( x^0,x^1\right)$
+\printbibliography[heading=bibintoc]
 \end{document}
