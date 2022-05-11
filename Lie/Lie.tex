@@ -1,0 +1,68 @@
+\documentclass{article}
+
+\usepackage{ctex}
+
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\allowdisplaybreaks[4]
+\usepackage{braket}
+\usepackage{slashed}
+
+\usepackage{geometry}
+\geometry{a4paper,left=2cm,right=2cm,top=2.5cm,bottom=2.5cm}
+
+\usepackage[colorlinks,linkcolor=blue]{hyperref}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    filecolor=magenta,      
+    urlcolor=red,
+    pdftitle={Overleaf Example},
+    pdfpagemode=FullScreen,
+    }
+
+\usepackage{titlesec} 
+\titleformat
+{\section}
+{\LARGE\bfseries\heiti\centering}
+{\arabic{section}.}
+{0.5em}
+{}[\titlerule]
+
+\titleformat
+{\subsection}[block]
+{\Large\bfseries\heiti}
+{\arabic{section}.\arabic{subsection}}
+{0.5em}
+{}[]
+
+\titleformat{\subsubsection}[block]
+{\large\bfseries\heiti}
+{\arabic{section}.\arabic{subsection}.\alph{subsubsection}}
+{0.5em}
+{}[]
+
+\counterwithin{table}{section}
+\counterwithin{figure}{section}
+\numberwithin{equation}{section}
+
+\newcommand{\wt}[1]{\widetilde{#1}}
+
+\newtheorem{theorem}{\hspace{2em}定理}[section]
+\newtheorem{define}{\hspace{2em}定义}[section]
+
+\title{\heiti \Huge Lie Group and Lie Algebra}
+\author{10190631——刘璇彰} 
+\date{}
+
+\begin{document}
+\maketitle
+本文将简单讲述李群李代数的基本知识，常见李群李代数，单李代数，仿射李代数等内容，囿于篇幅，将不再重复赘述群论和微分几何的相关内容，默认读者掌握这二者的基本概念（不需要太多，可以参考\href{https://zhuanlan.zhihu.com/p/294221308}{这篇文章} 和《微分几何入门与广义相对论》的前五章），且在本文中将使用与《微分几何入门与广义相对论》相同的抽象指标记号，如有不习惯，请尝试习惯习惯。下面我们开始正题。
+\section{Lie Group}
+\begin{define}
+				若G既是n维流形，又是一个群，且其群乘法$G \times G \rightarrow G$和求逆映射$G \rightarrow G$都是$C^{\infty}$，则$G$称为n维李群
+\end{define}
+从直观的角度来看，李群是一种连续的、光滑的“群”，
+\end{document}

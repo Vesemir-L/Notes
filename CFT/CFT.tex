@@ -54,7 +54,7 @@
 \maketitle
 \section{Movitation}
 \nocite{Peskin,conformal_field_theory,introduction,mathematical_introduction}
-对称性是研究宇宙自然规律的一个基本出发点，通常来说一个物理系统的对称性越高，它的物理机制越简单。而在场论中，对称性意味着在一个对称变换下物理系统的作用量不变，相应的运动方程也不变，{\heiti 可以证明，共形对称性是具有非平庸关联函数的理论所能拥有的最大对称性。}而研究具有共形不变性的经典或量子场论，就是所谓的{\heiti 共形场论（Conformal Field Theory）。}
+对称性是研究宇宙自然规律的一个基本出发点，通常来说，当一个物理系统的对称性越高时，它的物理机制往往越简单。在场论中，对称性意味着在一个对称变换下物理系统的作用量不变，相应的运动方程也在变换前后具有相同的形式，而对于量子场论来说，{\heiti 可以证明，共形对称性是具有非平庸关联函数的理论所能拥有的最大对称性。}研究具有共形不变性的经典或量子场，就是所谓的{\heiti 共形场论（Conformal Field Theory）。}
 \section{Path Integral}
 量子场论初级课程中我们学习了利用对易关系来量子化场论的正则量子化，这一过程颇为不易，但我们真正关心的，或者说在计算散射截面中真正用到是，如两点关联函数、费曼传播子、费曼规则等后续内容，那是否存在更直接的方法来获得这些结论呢？
 \par
@@ -441,7 +441,7 @@ Grassmann数的基本性质是任意两个数$\theta,\eta$之间满足反对易�
 \end{align}
 不难验证它满足这样的对易关系
 \begin{align}
-				\left[ J_{ab},J_{cd} \right]=i \left( g_{ad}J_{bc}+g_{bc}J_{ad}-g_{ac}J_{bd}-g_{bd}J_{ac}\right)
+				\left[ J_{mn},J_{rs} \right]=i \left( \eta_{ms}J_{nr}+\eta_{nr}J_{ms}-\eta_{mr}J_{ns}-\eta_{ns}J_{mr}\right)
 \end{align}
 其中$g_{ab}$是 $d+1$维Minkowski时空的度规张量，即 $g_{ab}=diag \left(\begin{matrix}-1,&\underbrace{1,\cdots,1}\\&d\end{matrix}\right)$，更一般地说，可以证明：{\heiti \bfseries 任意一个$\mathbf{d=p+q\geq 3}$维时空$\mathbf{\mathbb{R}^{p,q}}$的共形变换群是$\mathbf{SO \left( p+1,q+1\right)}$}。
 %\subsection{Conformal Group in $d\ =\ 2$}
