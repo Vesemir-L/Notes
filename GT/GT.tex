@@ -1,0 +1,97 @@
+\documentclass{article}
+
+\usepackage{ctex}
+
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\allowdisplaybreaks[4]
+\usepackage{braket}
+\usepackage{slashed}
+
+\usepackage{geometry}
+\geometry{a4paper,left=2cm,right=2cm,top=2.5cm,bottom=2.5cm}
+
+\let\kaishu\relax
+\newCJKfontfamily\kaishu{方正楷体简体}[BoldFont=方正粗楷简体]
+
+\usepackage{titlesec} 
+\titleformat
+{\section}
+{\LARGE\bfseries\heiti\centering}
+{\arabic{section}.}
+{0.35em}
+{}[\titlerule]
+
+\titleformat
+{\subsection}[block]
+{\Large\bfseries\heiti}
+{\arabic{section}.\arabic{subsection}}
+{0.5em}
+{}[]
+
+\titleformat{\subsubsection}[block]
+{\large\bfseries\kaishu}
+{\arabic{section}.\arabic{subsection}.\alph{subsubsection}}
+{0.5em}
+{}[]
+
+\counterwithin{table}{section}
+\counterwithin{figure}{section}
+\numberwithin{equation}{section}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{Definition}{\hspace{2em}定义}[section]
+\newtheorem{Think}{\hspace{2em}思考}[section]
+
+\newcommand{\wt}[1]{\widetilde{#1}}
+
+
+\title{\heiti \Huge 群表示论简介}
+%\author{10190631——刘璇彰} 
+\date{}
+
+\begin{document}
+\maketitle
+为了理解量子场论的基础内容，需要学习一定的群表示理论，本节内容就是基于此产生的。在此将提供一个简明的群表示论的介绍，包括最基础的群的定义、有限群的表示和李群的表示。
+\section{引言}
+物理学中很大一部分内容都是在研究对称性的作用，那么群论无疑是最适合的数学工具，而为了将抽象的群具象化到“可视”的对象上，就需要群表示理论。在本节，我们将简单介绍一些基本的代数学概念，在此默认读者有简单的集合的概念。
+				\begin{Definition}
+								设$X$是一个集合， $n$ 是正整数.则集合$X$上的一个 \textbf{\kaishu$\mathbf{n}$元 运算}就是一个映射 $f: X^n \rightarrow X$，其中$X^n$表示 $n$个 $X$的笛卡尔积.
+				\end{Definition}
+\par
+
+这是一个非常容易理解的定义，但是要注意，我们没有限制一个{\textbf{\kaishu 运算}}的性质，我们常见的实数的加法，乘法当然是二元运算，但它们其实满足更良好的性质，比如交换、结合、分配，但一般来看$\forall a,b \in X,a \neq b; f\left( a , b \right) \neq f \left( b , a \right)$。甚至说，如果我们将所有的$\left\{ \left. \left( a,b \right) \right|a,b \in X \right\} $都映射到同一个元素$c$上去，也满足运算的基本定义，一定不要把“运算”的概念局限在实数的加减乘除上。
+\par
+
+在所有运算中，我们最为关注的自然是二元运算，而为了简化表达，我们经常将二元运算$f \left( a,b \right) $写作$a \cdot b$或 $a \times b$（注意和实数的乘法相区分），在不至于混淆的情况下，也可直接写作$ab$。
+\par
+
+为了研究更有意思的二元运算，我们必须对这种宽泛的定义加以限制，给予它一些有趣的性质，也就是我们要真正讨论的重点---“群”，为此，我们将一步一步建立群的定义。
+				\begin{Definition}
+				设X为带有二元运算的集合，若这个运算满足\textbf{\kaishu 结合律} ，则称这个集合为\textbf{\kaishu 半群}.
+				\par
+				\centering
+				$\left( a \cdot b \right)\cdot c =a\cdot \left( b \cdot c \right)  $
+				\end{Definition}
+\par
+
+结合律是一项大家都熟知的性质，比如$n$阶方阵在矩阵乘法的意义上就是一个带有一个满足结合律的运算的集合（但是它不满足交换律），在初学线性代数的时候，矩阵相乘满足结合率但不满足交换律的性质总会引起我们的困扰，这也就反映在了它的名称上，\textbf{\kaishu “半”群}，还不是真正的群。
+\par 
+
+即使方阵的相乘并不那么完美，却依然存在一些性质及其特殊的元素，它们在矩阵相乘下有着独一无二的性质，那就是单位矩阵$\boldsymbol{I}$，它满足 $\boldsymbol{AI}=\boldsymbol{IA}=\boldsymbol{A}$，这种“单位元”的性质是如此特殊，以至于我们不得不给他们一个正式的定义。
+ \begin{Definition}
+				 若$\exists e \in X,\forall a \in X,a\cdot e=e\cdot a=a$则将元素$e\in X$ 称为运算的\textbf{\kaishu 单位元}，而带有单位元的半群被称为\textbf{\kaishu 幺半群}.
+\end{Definition}
+\begin{Think}
+    证明: 对于一个幺半群来说，其单位元是唯一的.
+\end{Think}
+
+
+
+
+
+
+
+\end{document}
